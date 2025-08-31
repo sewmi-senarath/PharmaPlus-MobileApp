@@ -5,6 +5,10 @@ import connectDB from "./src/config/db.js";
 import cartRoutes from "./src/routes/cartRoutes.js";
 import medicineRoutes from "./src/routes/medicineRoutes.js";
 import orderRoutes from "./src/routes/orderRoutes.js";
+import userRoutes from "./src/routes/userRoutes.js";
+import cookieParser from "cookie-parser";
+
+
 
 // Load environment variables
 dotenv.config();
@@ -13,15 +17,13 @@ dotenv.config();
 connectDB();
 
 const app = express();
-
+app.use(cookieParser());
 // Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Routes
-app.get("/api/users", (req, res) => {
-  res.json({ message: "Get all users" });
-});
+// User routes
+app.use("/api/users", userRoutes);
 
 // Cart routes
 app.use("/api/cart", cartRoutes);
